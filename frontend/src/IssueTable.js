@@ -20,7 +20,7 @@ function IssueTable({issues}){
             <td className='border border-gray-300 px-4 py-2'>{i.title}</td>
             <td className='border border-gray-300 px-4 py-2'>{i.owner}</td>
             <td className='border border-gray-300 px-4 py-2'>{i.status}</td>
-            <td className='border border-gray-300 px-4 py-2'>{i.createdAt}</td>
+            <td className='border border-gray-300 px-4 py-2'>{i.createdAt.split('T')[0]}</td>
             <td className='border border-gray-300 px-4 py-2'>{i.effort}</td>
             <td className='border border-gray-300 px-4 py-2'>{i.dueDate}</td>
           </tr>
