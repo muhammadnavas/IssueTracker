@@ -1,6 +1,6 @@
 # Issue Tracker
 
-This is a simple **React-based Issue Tracker** application that allows users to add issues via a form and display them in a table. The application uses **Tailwind CSS** for styling.
+This is a simple **React-based Issue Tracker** application that allows users to add issues via a form and display them in a table. The application uses **Tailwind CSS** for styling and connects to a **MongoDB** database via a Node.js backend.
 
 ---
 
@@ -15,7 +15,10 @@ This is a simple **React-based Issue Tracker** application that allows users to 
 3. **Dynamic State Management**:
    - The application dynamically updates the issue list when a new issue is added.
 
-4. **Styling**:
+4. **Backend Integration**:
+   - Issues are stored in a MongoDB database via a Node.js backend.
+
+5. **Styling**:
    - Tailwind CSS is used for clean and responsive styling.
 
 ---
@@ -25,7 +28,7 @@ This is a simple **React-based Issue Tracker** application that allows users to 
 ### **`src` Folder**
 - **`App.js`**:
   - The main component that renders the issue form and issue table.
-  - Manages the state of the issues list.
+  - Manages the state of the issues list and interacts with the backend API.
 - **`IssueForm.js`**:
   - A form component for adding new issues.
   - Handles user input and form submission.
@@ -33,28 +36,45 @@ This is a simple **React-based Issue Tracker** application that allows users to 
   - A table component for displaying the list of issues.
   - Dynamically renders rows based on the issues passed as props.
 
+### **`backend` Folder**
+- **`server.js`**:
+  - A Node.js server that connects to MongoDB and provides API endpoints for fetching and adding issues.
+
 ---
 
 ## Installation
 
 ### Prerequisites
 - Node.js and npm installed on your system.
+- MongoDB installed and running locally.
 
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/muhammadnavas/IssueTracker.git
+   git clone https://github.com/your-repo/issue-tracker.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd IssueTracker
+   cd issue-tracker
    ```
-3. Install dependencies:
+3. Install dependencies for the frontend:
    ```bash
+   cd frontend
    npm install
    ```
-4. Start the development server:
+4. Install dependencies for the backend:
    ```bash
+   cd ../backend
+   npm install
+   ```
+5. Start the MongoDB server locally.
+6. Start the backend server:
+   ```bash
+   node server.js
+   ```
+7. Start the frontend development server:
+   ```bash
+   cd ../frontend
    npm start
    ```
 
@@ -83,8 +103,12 @@ This is a simple **React-based Issue Tracker** application that allows users to 
    - Component-based architecture for building the UI.
 2. **Tailwind CSS**:
    - Utility-first CSS framework for styling.
-3. **JavaScript**:
-   - Logic for handling state and events.
+3. **Node.js**:
+   - Backend server for handling API requests.
+4. **MongoDB**:
+   - Database for storing issues.
+5. **Axios**:
+   - Library for making HTTP requests from the frontend to the backend.
 
 ---
 
@@ -93,6 +117,7 @@ This is a simple **React-based Issue Tracker** application that allows users to 
 ### **`App.js`**
 - Manages the state of the issues list.
 - Passes the issues list to `IssueTable` and the `addIssue` function to `IssueForm`.
+- Interacts with the backend API to fetch and save issues.
 
 ### **`IssueForm.js`**
 - A controlled form component for adding new issues.
@@ -101,6 +126,12 @@ This is a simple **React-based Issue Tracker** application that allows users to 
 ### **`IssueTable.js`**
 - Displays the list of issues in a table format.
 - Dynamically renders rows based on the `issues` prop.
+- Formats the `createdAt` field to display only the date (`YYYY-MM-DD`).
+
+### **`server.js`**
+- Connects to MongoDB and provides API endpoints:
+  - **GET `/issues`**: Fetches all issues from the database.
+  - **POST `/issues`**: Saves a new issue to the database.
 
 ---
 
