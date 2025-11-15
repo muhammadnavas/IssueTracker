@@ -1,11 +1,14 @@
 import './App.css';
-import React from 'react';
+import React, {useState} from 'react';
 import IssueTable from './IssueTable';
 import IssueForm from './IssueForm';
 
 function App() {
 
-  const [issues,setIssues]=React.useState([]);
+  const [issues,setIssues]=useState([
+    { id: 1, title: "UI Bug", owner: "Navas", status: "Open", createdAt: "2025-11-10", effort: 2, dueDate: "2025-11-12" },
+    { id: 2, title: "Login Error", owner: "Sana", status: "Closed", createdAt: "2025-11-14", effort: 1, dueDate: "2025-11-15" },
+  ]);
 
   // const issues=[
   //   {id:1,title:"UI Bug",owner:"Navas",status:"Open",createdAt:"2025-11-10",effort:2,dueDate:"2025-11-12"},
@@ -15,10 +18,10 @@ function App() {
   //   {id:5,title:"Not Responsive",owner:"Preethi",status:"Closed",createdAt:"2025-11-10",effort:1,dueDate:"2025-11-11"}
   // ]
 
-  const addIssue = (newIssue) => {
-    const issueWithId = { ...newIssue, id: issues.length + 1, createdAt: new Date().toISOString().split('T')[0] };
-    setIssues([...issues, issueWithId]);
-  };
+  const addIssue=(newIssue)=>{
+    const issueId={...newIssue,id:issues.length+1,createdAt:new Date().toISOString().split('T')[0]}
+    setIssues([...issues,issueId]);
+  }
 
   return(
     <div>
