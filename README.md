@@ -106,4 +106,4 @@ This is a simple **React-based Issue Tracker** application that allows users to 
 
 ## Author
 
-Created by **[Muhammad Navas]**.
+Created by **Muhammad Navas**.
