@@ -24,7 +24,8 @@ function App() {
   }
 
   return(
-    <div>
+    <div className='p-4'>
+      <h1 className='text-2xl font-bold mb-4'>Issue Tracker</h1>
       <IssueForm  onSubmit={addIssue}/>
       <IssueTable issues={issues}/>
     </div>

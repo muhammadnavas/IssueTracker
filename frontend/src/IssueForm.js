@@ -23,31 +23,42 @@ function IssueForm({onSubmit}){
     }
 
     return(
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Title</label>
-                <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} required/>
+        <form onSubmit={handleSubmit} className="p-4 border border-gray-300 rounded-md max-w-md">
+            <div className="mb-4">
+                <label className="block text-sm font-medium mb-1" htmlFor="title">Title</label>
+                <input type="text" id="title" name="title" value={formData.title} onChange={handleChange}
+                className="w-full border border-gray-300 rounded-md px-3 py-2"
+                required/>
             </div>
-            <div>
-                <label>Owner</label>
-                <input type="text" id="owner" name="owner" value={formData.owner} onChange={handleChange} required/>
+            <div className="mb-4">
+                <label className="block text-sm font-medium mb-1" htmlFor="owner">Owner</label>
+                <input type="text" id="owner" name="owner" value={formData.owner} onChange={handleChange} 
+                className="w-full border border-gray-300 rounded-md px-3 py-2"
+                required/>
             </div>
-            <div>
-                <label>Status</label>
-                <select id="status" name="status" value={formData.status} onChange={handleChange}>
+            <div className="mb-4">
+                <label className="block text-sm font-medium mb-1" htmlFor="status">Status</label>
+                <select id="status" name="status" value={formData.status} onChange={handleChange} 
+                className="w-full border border-gray-300 rounded-md px-3 py-2">
                     <option value="Open">Open</option>
                     <option value="Closed">Closed</option>
                 </select>
             </div>
-            <div>
-                <label>Effort</label>
-                <input type="number" id="effort" name="effort" value={formData.effort} onChange={handleChange} required/>
+            <div className="mb-4">
+                <label className="block text-sm font-medium mb-1" htmlFor="effort">Effort</label>
+                <input type="number" id="effort" name="effort" value={formData.effort} onChange={handleChange} 
+                className="w-full border border-gray-300 rounded-md px-3 py-2"
+                required/>
             </div>
-            <div>
-                <label>Due Date</label>
-                <input type="date" id="dueDate" name="dueDate" value={formData.dueDate} onChange={handleChange} required/>
+            <div className="mb-4">
+                <label className="block text-sm font-medium mb-1" htmlFor="dueDate">Due Date</label>
+                <input type="date" id="dueDate" name="dueDate" value={formData.dueDate} onChange={handleChange} 
+                className="w-full border border-gray-300 rounded-md px-3 py-2"
+                required/>
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit" 
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            >Submit</button>
         </form>
     )
 }
