@@ -15,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/issueTracker',{
 .catch(err=>console.error('MongoDB connection error :',err));
 
 const issueSchema=new mongoose.Schema({
+    id:Number,
     title:String,
     owner:String,
     status:String,
@@ -27,11 +28,25 @@ const Issue=mongoose.model('Issue',issueSchema);
 
 app.get('/issues', async(req,res)=>{
     const issues=await Issue.find();
-    res.json(issues);
+    const formattedIssues = issues.map(issue => ({
+        id: issue.id,
+        title: issue.title,     
+        owner: issue.owner,      
+        status: issue.status,    
+        effort: issue.effort,    
+        dueDate: issue.dueDate,   
+        createdAt: issue.createdAt.toISOString().split('T')[0] 
+    }));
+    res.json(formattedIssues);
 })
 
 app.post('/issues', async(req,res)=>{
-    const newIssue=new Issue(req.body);
+    const issues = await Issue.find();
+    const maxId = issues.length > 0 ? Math.max(...issues.map(issue => issue.id || 0)) : 0;
+    const newIssue = new Issue({
+        ...req.body,
+        id: maxId + 1
+    });
     await newIssue.save();
     res.json(newIssue)
 })
