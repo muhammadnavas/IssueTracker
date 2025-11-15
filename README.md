@@ -43,11 +43,11 @@ This is a simple **React-based Issue Tracker** application that allows users to 
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/issue-tracker.git
+   git clone https://github.com/muhammadnavas/IssueTracker.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd issue-tracker
+   cd IssueTracker
    ```
 3. Install dependencies:
    ```bash
@@ -104,44 +104,6 @@ This is a simple **React-based Issue Tracker** application that allows users to 
 
 ---
 
-## Example Code
-
-### Adding Issues (`IssueForm.js`)
-```javascript
-const handleSubmit = (e) => {
-  e.preventDefault();
-  if (onSubmit) {
-    onSubmit(formData);
-  }
-  setFormData({ title: '', owner: '', status: 'Open', effort: '', dueDate: '' });
-};
-```
-
-### Displaying Issues (`IssueTable.js`)
-```javascript
-<tbody>
-  {issues.map(i => (
-    <tr key={i.id} className="hover:bg-green-50">
-      <td className="border border-gray-300 px-4 py-2">{i.id}</td>
-      <td className="border border-gray-300 px-4 py-2">{i.title}</td>
-      <td className="border border-gray-300 px-4 py-2">{i.owner}</td>
-      <td className="border border-gray-300 px-4 py-2">{i.status}</td>
-      <td className="border border-gray-300 px-4 py-2">{i.createdAt}</td>
-      <td className="border border-gray-300 px-4 py-2">{i.effort}</td>
-      <td className="border border-gray-300 px-4 py-2">{i.dueDate}</td>
-    </tr>
-  ))}
-</tbody>
-```
-
----
-
-## License
-
-This project is licensed under the MIT License. Feel free to use, modify, and distribute it as needed.
-
----
-
 ## Author
 
-Created by **[Your Name]**.
+Created by **[Muhammad Navas]**.
