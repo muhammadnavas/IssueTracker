@@ -30,11 +30,18 @@ function App() {
     .catch(error=>console.log('Error adding issues :',error))
   }
 
+  const onUpdateIssue=(updatedIssue)=>{
+    axios.put(`http://localhost:5000/issues/${updatedIssue.id}`,updatedIssue)
+    .then(()=>{
+      setIssues((prevIssues)=>prevIssues.map((issue)=>issue.id===updatedIssue.id?{...issue,...updatedIssue}:issue))
+    })
+    .catch((error)=>console.log('Error updating issue:',error))
+  }
   return(
     <div className='p-4'>
       <h1 className='text-2xl font-bold mb-4'>Issue Tracker</h1>
       <IssueForm  onSubmit={addIssue}/>
-      <IssueTable issues={issues}/>
+      <IssueTable issues={issues} onUpdateIssue={onUpdateIssue}/>
     </div>
   )
   

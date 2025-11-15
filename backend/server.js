@@ -40,6 +40,23 @@ app.get('/issues', async(req,res)=>{
     res.json(formattedIssues);
 })
 
+app.put('/issues/:id',async(req,res)=>{
+    const {id}=req.params;
+    const updatedData=req.body;
+    try{
+        const updatedIssue=await Issue.findOneAndUpdate({id:parseInt(id)}, updatedData,{
+            new:true,
+        })
+        if(!updatedIssue){
+            return  res.status(404).json({message:'Issue not found'});
+        }
+        res.json(updatedIssue);
+    }
+    catch(error){
+        console.log('Error updating issue:',error);
+        res.status(500).json({message:'Internal server error'})
+    }
+})
 app.post('/issues', async(req,res)=>{
     const issues = await Issue.find();
     const maxId = issues.length > 0 ? Math.max(...issues.map(issue => issue.id || 0)) : 0;

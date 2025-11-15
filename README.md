@@ -1,6 +1,6 @@
 # Issue Tracker
 
-This is a simple **React-based Issue Tracker** application that allows users to add issues via a form and display them in a table. The application uses **Tailwind CSS** for styling and connects to a **MongoDB** database via a Node.js backend.
+This is a simple **MERN Issue Tracker** application that allows users to add issues via a form and display them in a table. The application uses **Tailwind CSS** for styling and connects to a **MongoDB** database via a Node.js backend.
 
 ---
 
@@ -20,6 +20,10 @@ This is a simple **React-based Issue Tracker** application that allows users to 
 
 5. **Styling**:
    - Tailwind CSS is used for clean and responsive styling.
+
+6. **Edit Issues**:
+   - Users can edit existing issues directly in the table.
+   - Inline editing allows users to modify fields such as title, owner, status, effort, and due date.
 
 ---
 
@@ -95,6 +99,21 @@ This is a simple **React-based Issue Tracker** application that allows users to 
 - The issues are displayed in a table below the form.
 - Each issue includes details such as ID, title, owner, status, creation date, effort, and due date.
 
+### Editing Issues
+- Click on an issue to edit it.
+- Modify the fields as needed.
+- Click **Submit** to save the changes.
+
+### **Filters**
+
+- **Status Filter**:
+  - Allows users to filter issues based on their status (e.g., Open, Closed).
+  - Dropdown menu for selecting the desired status.
+
+- **Text Filter**:
+  - Enables users to search for issues by title or owner.
+  - Case-insensitive search for better usability.
+
 ---
 
 ## Technologies Used
@@ -132,6 +151,7 @@ This is a simple **React-based Issue Tracker** application that allows users to 
 - Connects to MongoDB and provides API endpoints:
   - **GET `/issues`**: Fetches all issues from the database.
   - **POST `/issues`**: Saves a new issue to the database.
+  - **PUT `/issues/:id`**: Updates an existing issue in the database.
 
 ---
 
