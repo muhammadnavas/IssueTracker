@@ -114,6 +114,12 @@ This is a simple **MERN Issue Tracker** application that allows users to add iss
   - Enables users to search for issues by title or owner.
   - Case-insensitive search for better usability.
 
+### **Deleting Issues**
+
+- Users can delete issues directly from the table.
+- A confirmation option is provided to prevent accidental deletions.
+- Once confirmed, the issue is removed from both the frontend and the database.
+
 ---
 
 ## Technologies Used
@@ -152,6 +158,7 @@ This is a simple **MERN Issue Tracker** application that allows users to add iss
   - **GET `/issues`**: Fetches all issues from the database.
   - **POST `/issues`**: Saves a new issue to the database.
   - **PUT `/issues/:id`**: Updates an existing issue in the database.
+  - **DELETE `/issues/:id`**: Removes an issue from the database.
 
 ---
 
