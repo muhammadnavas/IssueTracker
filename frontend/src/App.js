@@ -30,6 +30,14 @@ function App() {
     .catch(error=>console.log('Error adding issues :',error))
   }
 
+  const deleteIssue=(id)=>{
+    axios.delete(`http://localhost:5000/issues/${id}`)
+    .then(()=>{
+      setIssues((prevIssues)=>prevIssues.filter((issue)=>issue.id!==id));
+    })
+    .catch((error)=>console.log('Error deleting issue:',error));
+  }
+
   const onUpdateIssue=(updatedIssue)=>{
     axios.put(`http://localhost:5000/issues/${updatedIssue.id}`,updatedIssue)
     .then(()=>{
@@ -37,11 +45,12 @@ function App() {
     })
     .catch((error)=>console.log('Error updating issue:',error))
   }
+
   return(
     <div className='p-4'>
       <h1 className='text-2xl font-bold mb-4'>Issue Tracker</h1>
       <IssueForm  onSubmit={addIssue}/>
-      <IssueTable issues={issues} onUpdateIssue={onUpdateIssue}/>
+      <IssueTable issues={issues} onUpdateIssue={onUpdateIssue} onDeleteIssue={deleteIssue}/>
     </div>
   )
   

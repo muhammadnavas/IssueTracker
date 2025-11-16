@@ -8,11 +8,9 @@ const app=express();
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/issueTracker',{
-    useNewUrlParser:true,
-    useUnifiedTopology:true
-}).then(()=> console.log("MongoDB Connected"))
-.catch(err=>console.error('MongoDB connection error :',err));
+mongoose.connect('mongodb://localhost:27017/issueTracker')
+    .then(() => console.log("MongoDB Connected"))
+    .catch(err => console.error('MongoDB connection error:', err));
 
 const issueSchema=new mongoose.Schema({
     id:Number,
@@ -66,6 +64,20 @@ app.post('/issues', async(req,res)=>{
     });
     await newIssue.save();
     res.json(newIssue)
+})
+
+app.delete('/issues/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deletedIssue = await Issue.findOneAndDelete({ id: parseInt(id) });
+        if (!deletedIssue) {
+            return res.status(404).json({ message: 'Issue not found' });
+        }
+        res.json({ message: 'Issue deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting issue:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 })
 
 app.listen(5000,()=> console.log("Server running on http://localhost:5000"));

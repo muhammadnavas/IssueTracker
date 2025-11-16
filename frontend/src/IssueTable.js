@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-function IssueTable({ issues, onUpdateIssue }) {
+function IssueTable({ issues, onUpdateIssue, onDeleteIssue }) {
   // States
   const [statusFilter, setStatusFilter] = useState('');
   const [textFilter, setTextFilter] = useState('');
   const [editIssue, setEditIssue]=useState(null)
+  const [deleteIssue,setDeleteIssue]=useState(null)
   
   // Filters
   const filteredIssues = issues.filter(issue => {
-    const matchesStatus = statusFilter === '' || issue.status.toLowerCase() === statusFilter.toLowerCase();
+    const matchesStatus = statusFilter === '' || 
+    issue.status.toLowerCase() === statusFilter.toLowerCase();
     const matchesText =
       issue.owner.toLowerCase().includes(textFilter.toLowerCase()) ||
       issue.title.toLowerCase().includes(textFilter.toLowerCase());
@@ -36,7 +38,19 @@ function IssueTable({ issues, onUpdateIssue }) {
     setEditIssue({...editIssue,[name]:value})
   }
 
-  
+  // Delete
+  const handleDeleteClick=(id)=>{
+    setDeleteIssue(id);
+  }
+  //Confirm Delete
+  const handleConfirmDelete=()=>{
+    onDeleteIssue(deleteIssue)
+    setDeleteIssue(null)
+  }
+  // Cancel delete
+  const handleCancelDelete = () => {
+    setDeleteIssue(null); // Cancel the delete action
+  };
 
   return (
     <div className='p-4'>
@@ -104,7 +118,7 @@ function IssueTable({ issues, onUpdateIssue }) {
                     <select
                       name='status'
                       value={editIssue.status}
-                      onChange={handleChange} // Update status
+                      onChange={handleChange}
                       className='w-full border border-gray-300 rounded-md px-2 py-1'
                     >
                       <option value='Open'>Open</option>
@@ -153,10 +167,29 @@ function IssueTable({ issues, onUpdateIssue }) {
                   <td className='border border-gray-300 px-4 py-2'>{i.effort}</td>
                   <td className='border border-gray-300 px-4 py-2'>{i.dueDate}</td>
                   <td className='border border-gray-300 px-4 py-2'>
+                    {deleteIssue===i.id?(
+                      <>
+                        <button onClick={handleConfirmDelete}
+                        className='bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600'>
+                          Confirm
+                        </button>
+                        <button onClick={handleCancelDelete}
+                        className='bg-gray-500 text-white px-2 py-1 rounded-md hover:bg-gray-600 ml-2'>
+                          Cancel
+                        </button>
+                      </>
+                    ):(
+                      <>
                     <button onClick={()=>handleEditClick(i)}
                     className='bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600'>
                     Edit
                     </button>
+                    <button onClick={()=>handleDeleteClick(i.id)}
+                    className='bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 ml-2'>
+                      Delete
+                      </button>
+                      </>
+                    )}
                   </td>
                 </>
               )}
