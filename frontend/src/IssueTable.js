@@ -1,9 +1,7 @@
 import { useState } from 'react';
 
-function IssueTable({ issues, onUpdateIssue, onDeleteIssue }) {
+function IssueTable({ issues, onUpdateIssue, onDeleteIssue, statusFilter, textFilter }) {
   // States
-  const [statusFilter, setStatusFilter] = useState('');
-  const [textFilter, setTextFilter] = useState('');
   const [editIssue, setEditIssue]=useState(null)
   const [deleteIssue,setDeleteIssue]=useState(null)
   
@@ -53,35 +51,10 @@ function IssueTable({ issues, onUpdateIssue, onDeleteIssue }) {
   };
 
   return (
-    <div className='p-4'>
-      <div className='mb-4'>
-        <label className='block text-sm font-medium mb-1 ' htmlFor='textFilter'>Filter by Title or Owner</label>
-        <input
-          type='text'
-          id='textFilter'
-          name='textFilter'
-          value={textFilter}
-          onChange={(e) => setTextFilter(e.target.value)}
-          className='w-full border border-gray-300 rounded-md px-3 py-2 max-w-md'
-          placeholder='Enter title or owner name'
-        />
+    <div className='px-0'>
+      <div className='mb-6'>
+        <h2 className='text-2xl font-semibold text-gray-800 mb-4'>Issues List</h2>
       </div>
-
-      <div className='mb-4'>
-        <label className='block text-sm font-medium mb-1' htmlFor='statusFilter'>Filter by Status</label>
-        <select
-          id='statusFilter'
-          name='statusFilter'
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          className='w-full border border-gray-300 rounded-md px-3 py-2 max-w-md'
-        >
-          <option value=''>All</option>
-          <option value='Open'>Open</option>
-          <option value='Closed'>Closed</option>
-        </select>
-      </div>
-
       <table className='table-auto border-collapse border border-gray-300 w-full text-left'>
         <thead>
           <tr className='bg-blue-100'>
@@ -98,14 +71,19 @@ function IssueTable({ issues, onUpdateIssue, onDeleteIssue }) {
         <tbody>
           {filteredIssues.map(i => (
             <tr key={i.id} className='hover:bg-green-50'>
-              {editIssue?.id===i.id?(
+              {editIssue?.id === i.id ? (
                 <>
-                <td className='border border-gray-300 px-4 py-2'>{i.id}</td>
-                <td className='border border-gray-300 px-4 py-2'>
-                <input type='text'name='title' value={editIssue.title} onChange={handleChange}
-                className='w-full border border-gray-300 rounded-md  px-2 py-1'/>
-                </td> 
-                <td className='border border-gray-300 px-4 py-2'>
+                  <td className='border border-gray-300 px-4 py-2'>{i.id}</td>
+                  <td className='border border-gray-300 px-4 py-2'>
+                    <input
+                      type='text'
+                      name='title'
+                      value={editIssue.title}
+                      onChange={handleChange}
+                      className='w-full border border-gray-300 rounded-md px-2 py-1'
+                    />
+                  </td>
+                  <td className='border border-gray-300 px-4 py-2'>
                     <input
                       type='text'
                       name='owner'
@@ -124,8 +102,8 @@ function IssueTable({ issues, onUpdateIssue, onDeleteIssue }) {
                       <option value='Open'>Open</option>
                       <option value='Closed'>Closed</option>
                     </select>
-                    </td>
-                    <td className='border border-gray-300 px-4 py-2'>{i.createdAt.split('T')[0]}</td>
+                  </td>
+                  <td className='border border-gray-300 px-4 py-2'>{i.createdAt.split('T')[0]}</td>
                   <td className='border border-gray-300 px-4 py-2'>
                     <input
                       type='number'
@@ -145,51 +123,77 @@ function IssueTable({ issues, onUpdateIssue, onDeleteIssue }) {
                     />
                   </td>
                   <td className='border border-gray-300 px-4 py-2'>
-                    <button onClick={handleSaveClick}
-                    className='bg-green-500 text-white px-2 py-1 rounded-md hover:bg-green-600'>
-                      Save
-                    </button>
-                    <button
-                      onClick={handleCancelClick}
-                      className='bg-gray-500 text-white px-2 py-1 rounded-md hover:bg-gray-600 ml-2'
-                    >
-                      Cancel
-                    </button>
+                    <div className='flex gap-2'>
+                      <button
+                        onClick={handleSaveClick}
+                        className='bg-green-500 text-white px-2 py-1 rounded-md hover:bg-green-600 text-sm'
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={handleCancelClick}
+                        className='bg-gray-500 text-white px-2 py-1 rounded-md hover:bg-gray-600 text-sm'
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </td>
                 </>
-              ):(
+              ) : (
                 <>
                   <td className='border border-gray-300 px-4 py-2'>{i.id}</td>
                   <td className='border border-gray-300 px-4 py-2'>{i.title}</td>
                   <td className='border border-gray-300 px-4 py-2'>{i.owner}</td>
-                  <td className='border border-gray-300 px-4 py-2'>{i.status}</td>
+                  <td className='border border-gray-300 px-4 py-2'>
+                    <select
+                      value={i.status}
+                      onChange={(e) => {
+                        const updatedIssue = { ...i, status: e.target.value };
+                        onUpdateIssue(updatedIssue);
+                      }}
+                      className='w-full border border-gray-300 rounded-md px-2 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+                    >
+                      <option value='Open'>Open</option>
+                      <option value='Closed'>Closed</option>
+                    </select>
+                  </td>
                   <td className='border border-gray-300 px-4 py-2'>{i.createdAt.split('T')[0]}</td>
                   <td className='border border-gray-300 px-4 py-2'>{i.effort}</td>
                   <td className='border border-gray-300 px-4 py-2'>{i.dueDate}</td>
                   <td className='border border-gray-300 px-4 py-2'>
-                    {deleteIssue===i.id?(
-                      <>
-                        <button onClick={handleConfirmDelete}
-                        className='bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600'>
-                          Confirm
-                        </button>
-                        <button onClick={handleCancelDelete}
-                        className='bg-gray-500 text-white px-2 py-1 rounded-md hover:bg-gray-600 ml-2'>
-                          Cancel
-                        </button>
-                      </>
-                    ):(
-                      <>
-                    <button onClick={()=>handleEditClick(i)}
-                    className='bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600'>
-                    Edit
-                    </button>
-                    <button onClick={()=>handleDeleteClick(i.id)}
-                    className='bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 ml-2'>
-                      Delete
-                      </button>
-                      </>
-                    )}
+                    <div className='flex gap-2'>
+                      {deleteIssue === i.id ? (
+                        <>
+                          <button
+                            onClick={handleConfirmDelete}
+                            className='bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 text-sm'
+                          >
+                            Confirm
+                          </button>
+                          <button
+                            onClick={handleCancelDelete}
+                            className='bg-gray-500 text-white px-2 py-1 rounded-md hover:bg-gray-600 text-sm'
+                          >
+                            Cancel
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            onClick={() => handleEditClick(i)}
+                            className='bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600 text-sm'
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDeleteClick(i.id)}
+                            className='bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 text-sm'
+                          >
+                            Delete
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </td>
                 </>
               )}
