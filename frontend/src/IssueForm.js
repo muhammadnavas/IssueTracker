@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import { useState } from "react";
 
 function IssueForm({onSubmit}){
     const [formData,setFormData]=useState({
@@ -51,10 +51,9 @@ function IssueForm({onSubmit}){
                 required/>
             </div>
             <div className="mb-4">
-                <label className="block text-sm font-medium mb-1" htmlFor="dueDate">Due Date</label>
+                <label className="block text-sm font-medium mb-1" htmlFor="dueDate">Due Date (Optional)</label>
                 <input type="date" id="dueDate" name="dueDate" value={formData.dueDate} onChange={handleChange} 
-                className="w-full border border-gray-300 rounded-md px-3 py-2"
-                required/>
+                className="w-full border border-gray-300 rounded-md px-3 py-2"/>
             </div>
             <button type="submit" 
             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"

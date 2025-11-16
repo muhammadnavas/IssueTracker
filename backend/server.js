@@ -13,12 +13,12 @@ mongoose.connect('mongodb://localhost:27017/issueTracker')
     .catch(err => console.error('MongoDB connection error:', err));
 
 const issueSchema=new mongoose.Schema({
-    id:Number,
+    id:{type:Number,unique:true},
     title:String,
     owner:String,
     status:String,
     effort:Number,
-    dueDate:String,
+    dueDate:{type:String,default:null},
     createdAt:{type:Date,default:Date.now}
 })
 
