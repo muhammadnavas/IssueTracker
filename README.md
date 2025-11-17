@@ -1,6 +1,6 @@
 # Issue Tracker
 
-This is a simple **MERN Issue Tracker** application that allows users to add issues via a form and display them in a table. The application uses **Tailwind CSS** for styling and connects to a **MongoDB** database via a Node.js backend.
+This is a simple *MERN Stack Issue Tracker* application that allows users to add issues via a form and display them in a table. The application uses **Tailwind CSS** for styling and connects to a **MongoDB** database via a Node.js backend.
 
 ---
 
